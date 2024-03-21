@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.rbac_back.Mapper.PermissionMapper">
+    <select id="getAllPermissions" resultType="com.example.rbac_back.POJO.Permission">
+        SELECT * FROM permission
+    </select>
+
+    <select id="getPermissionNameById" resultType="String">
+        SELECT per_name FROM permission WHERE per_id = #{per_id}
+    </select>
+
+    <select id="getPermissionIdByName" resultType="Integer">
+        SELECT per_id FROM permission WHERE per_name = #{per_name}
+    </select>
+
+    <select id="getPermissionByName" resultType="com.example.rbac_back.POJO.Permission">
+        SELECT * FROM permission WHERE per_name = #{per_name}
+    </select>
+
+    <insert id="addPermission" useGeneratedKeys="true">
+        INSERT INTO permission(per_name, per_des, per_menu)
+        VALUES (#{per_name}, #{per_des}, #{per_menu})
+    </insert>
+
+    <delete id="deletePermission">
+        DELETE FROM permission WHERE per_id = #{per_id}
+    </delete>
+</mapper>

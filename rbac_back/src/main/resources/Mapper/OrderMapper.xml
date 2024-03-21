@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.rbac_back.Mapper.OrderMapper">
+    <select id="getOrders" resultType="com.example.rbac_back.POJO.Order">
+        SELECT * from orders
+    </select>
+    <select id="getOrderById" resultType="com.example.rbac_back.POJO.Order">
+        SELECT * from orders WHERE order_id = #{order_id}
+    </select>
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="order_id">
+        INSERT into orders(userid, ticket_id, username, ticket_name, order_time, order_price, order_status)
+        VALUES (#{userid}, #{ticket_id}, #{username}, #{ticket_name}, #{order_time}, #{order_price}, #{order_status})
+    </insert>
+    <update id="setOrderStatus">
+        UPDATE orders SET order_status = #{order_status} WHERE order_id = #{order_id}
+    </update>
+    <delete id="deleteOrder">
+        Delete FROM orders WHERE order_id = #{order_id}
+    </delete>
+    <select id="getAllUserGoodOrders" resultType="com.example.rbac_back.POJO.Order">
+        SELECT * from orders WHERE userid = #{userid} and order_status = 1
+    </select>
+    <select id="getAllGoodOrders" resultType="com.example.rbac_back.POJO.Order">
+        SELECT * from orders WHERE order_status = 1 ORDER BY order_id DESC LIMIT 100;
+    </select>
+    <select id="getAllBadOrders" resultType="com.example.rbac_back.POJO.Order">
+        SELECT * from orders WHERE order_status != 1 ORDER BY order_id DESC LIMIT 100;
+    </select>
+    <update id="deleteTicketOrders">
+        UPDATE orders SET order_status = -3 WHERE ticket_id = #{ticket_id} and order_status = 1
+    </update>
+    <update id="deleteUserOrders">
+        UPDATE orders SET order_status = -4 WHERE userid = #{userid} and order_status = 1
+    </update>
+</mapper>

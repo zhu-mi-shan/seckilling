@@ -1,0 +1,95 @@
+version: "3.4"
+
+services:
+  mysql:
+    container_name: ssadmin-mysql
+    image: mysql:8
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-root}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-123456}
+    volumes:
+      - mysql:/var/lib/mysql/
+      - ./sql/ssadmin_init.sql:/docker-entrypoint-initdb.d/ssadmin_init.sql:ro
+  
+  redis:
+    container_name: ssadmin-redis
+    image: redis:7.0.12
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
+      - ./redis.conf:/user/local/etc/redis/redis.conf
+      # 数据导入
+      - ./dump.rdb:/data/dump.rdb
+    command: ["redis-server", "/user/local/etc/redis/redis.conf"]
+
+  rabbitmq:
+    restart: unless-stopped
+    image: rabbitmq:3.9-management
+    container_name: ssadmin-rabbitmq
+    hostname: ssadmin-rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      TZ: Asia/Shanghai
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: root
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    command: >
+      bash -c "
+        rabbitmq-plugins enable rabbitmq_management && 
+        rabbitmq-server
+      "
+
+  server:
+    container_name: ssadmin-server
+    build:
+      context: ./rbac_back/
+    image: ssadmin-server
+    restart: unless-stopped
+    ports:
+      - "28080:28080"
+    environment:
+      SPRING_PROFILES_ACTIVE: server
+      JAVA_OPTS:
+        ${JAVA_OPTS:-
+          -Xms512m
+          -Xmx512m
+          -Djava.security.egd=file:/dev/./urandom
+        }
+      ARGS:
+        --spring.datasource.url=${DATASOURCE_URL:-jdbc:mysql://ssadmin-mysql:3306/ssadmin?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true&useAffectedRows=true}
+    depends_on:
+      - mysql
+      - redis
+      - rabbitmq
+
+  web:
+    container_name: ssadmin-web
+    build:
+      context: ./rbac
+      args:
+        NODE_ENV:
+          ENV=${NODE_ENV:-production}
+          VUE_APP_TITLE=${VUE_APP_TITLE:-SSADMIN管理系统}
+    image: ssadmin-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+
+volumes:
+  mysql:
+    driver: local
+  redis:
+    driver: local
+  rabbitmq:
+    driver: local

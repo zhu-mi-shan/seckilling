@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.rbac_back.Mapper.MenuMapper">
+    <select id="getSubMenu" resultType="com.example.rbac_back.POJO.Menu">
+        SELECT * FROM menu WHERE menu_parent_id = #{menu_id}
+    </select>
+
+    <select id="getParentMenu" resultType="com.example.rbac_back.POJO.Menu">
+        SELECT * FROM menu WHERE menu_id = #{menu_parent_id}
+    </select>
+
+    <select id="getMenuById" resultType="com.example.rbac_back.POJO.Menu">
+        SELECT * FROM menu WHERE menu_id = #{menu_id}
+    </select>
+</mapper>

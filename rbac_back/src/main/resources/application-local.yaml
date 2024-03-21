@@ -1,0 +1,38 @@
+# localDev
+server:
+  port: 28080
+spring:
+  main:
+    allow-circular-references: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/rbac?useAffectedRows=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: localhost # Redis服务器地址
+    port: 6379       # Redis服务器端口
+    password: root       # Redis服务器密码，如果有的话
+    jedis:
+      pool:
+        max-active: 10    # 连接池最大连接数
+        max-idle: 5       # 连接池中的最大空闲连接
+        min-idle: 1       # 连接池中的最小空闲连接
+        max-wait: 10000ms # 连接池最大阻塞等待时间
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: root
+    password: root
+
+# MyBatis 配置
+mybatis:
+  mapper-locations: classpath:Mapper/*.xml
+
+# JWT配置
+jwt:
+  secret: gx4SN/4gh6QPvLfVWCW8Aoo4l2n66d2338IwXyu1koDT1W94XS35OZJPYkA2IIMMgmlz96LCHSNc8jLYuzwB1IreKOZz2TZhsWODfjHAS9bYlduniCUSuSPZ5/OP15O63fn1kN1N5w64frpyWcWbTtiCgLMkJpnfjmqFMAr7fgcOGyt2rmunvFYni9T78Q4fn/0gpx3qm8zXw3oBbFb1Ge9Wnh1UCSapXd/EzLau3iaXqp9f+8FHmSCo9vbEaRSRMPHdcpnB4WKHKySE/BCNSsWM+kHmHyrAbvKErPCz2XXMnIalUoAtquq03LnmYjrBHyI230VcYEVzGmzLOTsSJw==
+  access_token:
+    expiration: 36000 # 10hours
+  refresh_token:
+    expiration: 604800 # a week

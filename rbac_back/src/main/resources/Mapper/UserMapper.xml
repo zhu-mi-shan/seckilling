@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.rbac_back.Mapper.UserMapper">
+    <select id="getUserByName" resultType="com.example.rbac_back.POJO.User">
+        SELECT * FROM user WHERE username = #{username}
+    </select>
+
+    <select id="getUserById" resultType="com.example.rbac_back.POJO.User">
+        SELECT * FROM user WHERE userid = #{userid}
+    </select>
+
+    <select id="getAllUsers" resultType="com.example.rbac_back.POJO.User">
+        SELECT * FROM user
+    </select>
+
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="userid">
+        INSERT INTO user(username, user_pwd, user_realname, user_sex, user_phone_number)
+            VALUES (#{username}, #{user_pwd}, #{user_realname}, #{user_sex}, #{user_phone_number})
+    </insert>
+    <update id="updateUser">
+        UPDATE user set user_pwd = #{user_pwd}, user_realname = #{user_realname}, user_sex = #{user_sex},
+                        user_phone_number = #{user_phone_number} WHERE userid = #{userid}
+    </update>
+    <delete id="deleteUser">
+        DELETE FROM user WHERE userid = #{userid}
+    </delete>
+</mapper>

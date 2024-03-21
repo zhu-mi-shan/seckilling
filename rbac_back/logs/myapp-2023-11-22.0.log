@@ -1,0 +1,12 @@
+2023-11-22 18:11:40 [main] INFO  com.example.rbac_back.HelloTests - Starting HelloTests using Java 1.8.0_291 on LAPTOP-EKO8NL36 with PID 5584 (started by 14324 in C:\Users\14324\Desktop\code\WebPrj\rbac-system\rbac_back)
+2023-11-22 18:11:40 [main] INFO  com.example.rbac_back.HelloTests - The following 1 profile is active: "local"
+2023-11-22 18:11:41 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2023-11-22 18:11:41 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2023-11-22 18:11:41 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 19 ms. Found 0 Redis repository interfaces.
+2023-11-22 18:11:45 [main] INFO  com.example.rbac_back.HelloTests - Started HelloTests in 6.05 seconds (JVM running for 7.933)
+2023-11-22 18:36:07 [main] INFO  com.example.rbac_back.HelloTests - Starting HelloTests using Java 1.8.0_291 on LAPTOP-EKO8NL36 with PID 18908 (started by 14324 in C:\Users\14324\Desktop\code\WebPrj\rbac-system\rbac_back)
+2023-11-22 18:36:07 [main] INFO  com.example.rbac_back.HelloTests - The following 1 profile is active: "local"
+2023-11-22 18:36:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2023-11-22 18:36:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2023-11-22 18:36:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 18 ms. Found 0 Redis repository interfaces.
+2023-11-22 18:36:11 [main] INFO  com.example.rbac_back.HelloTests - Started HelloTests in 5.312 seconds (JVM running for 7.413)

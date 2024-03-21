@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.rbac_back.Mapper.RolePermissionMapper">
+    <select id="getRolePermissionsById" resultType="java.lang.Integer">
+        SELECT per_id FROM role_permission WHERE role_id = #{role_id}
+    </select>
+
+    <select id="roleHasPermission" resultType="java.lang.Boolean">
+        SELECT COUNT(*) FROM role_permission WHERE role_id = #{role_id} and per_id = #{per_id}
+    </select>
+
+    <insert id="addRolePermission">
+        INSERT INTO role_permission(role_id, per_id) VALUES (#{role_id}, #{per_id})
+    </insert>
+
+    <delete id="deleteRolePermission">
+        DELETE from role_permission WHERE role_id = #{role_id}
+    </delete>
+</mapper>

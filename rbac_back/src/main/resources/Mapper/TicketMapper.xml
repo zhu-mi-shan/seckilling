@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.rbac_back.Mapper.TicketMapper">
+    <insert id="addTicket" useGeneratedKeys="true" keyProperty="ticket_id">
+        INSERT INTO ticket(ticket_name, ticket_cnt, ticket_price, ticket_start_time, ticket_end_time, ticket_des)
+            VALUES (#{ticket_name}, #{ticket_cnt}, #{ticket_price}, #{ticket_start_time}, #{ticket_end_time}, #{ticket_des})
+    </insert>
+    <select id="getTickets" resultType="com.example.rbac_back.POJO.Ticket">
+        SELECT * FROM ticket
+    </select>
+    <select id="getTicketById" resultType="com.example.rbac_back.POJO.Ticket">
+        SELECT * FROM ticket WHERE ticket_id = #{ticket_id}
+    </select>
+    <update id="sellATicket">
+        update ticket set ticket_cnt = ticket_cnt - 1 WHERE ticket_id = #{ticket_id} AND ticket_cnt > 0
+    </update>
+    <delete id="deleteTicket">
+        DELETE FROM ticket WHERE ticket_id = #{ticket_id}
+    </delete>
+    <update id="updateATicket">
+        update ticket set ticket_name = #{ticket_name}, ticket_cnt = #{ticket_cnt}, ticket_price = #{ticket_price}, ticket_start_time = #{ticket_start_time}, ticket_end_time = #{ticket_end_time}, ticket_des = #{ticket_des} WHERE ticket_id = #{ticket_id}
+    </update>
+    <update id="cancelATicket">
+        update ticket set ticket_cnt = ticket_cnt + 1 WHERE ticket_id = #{ticket_id}
+    </update>
+</mapper>
